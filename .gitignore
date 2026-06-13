@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment files (NEVER commit these)
+.env
+*.env.local
+gcp-sa-key.json
+
+# Build outputs
+frontend/build/
+backend/coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# SonarQube
+.scannerwork/

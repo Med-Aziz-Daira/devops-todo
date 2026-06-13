@@ -13,8 +13,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: ../docker/Dockerfile.backend
+      context: .
+      dockerfile: docker/Dockerfile.backend
     container_name: todo-backend
     ports:
       - "5000:5000"
@@ -29,13 +29,15 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: ../docker/Dockerfile.frontend
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+      args:
+        REACT_APP_API_URL: /api/tasks
     container_name: todo-frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     environment:
-      - REACT_APP_API_URL=http://localhost:5000/api/tasks
+      - REACT_APP_API_URL=/api/tasks
     depends_on:
       - backend
     networks:

@@ -3,10 +3,16 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-COPY frontend/package*.json ./
+# React build must point at backend path inside Docker
+ARG REACT_APP_API_URL=/api/tasks
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+
+# Copy package files first for build caching
+COPY frontend/package.json frontend/package-lock.json ./
 
 RUN npm ci
 
+# Copy application sources and build
 COPY frontend/ ./
 
 RUN npm run build

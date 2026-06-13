@@ -2,10 +2,11 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files first (layer caching optimization)
-COPY backend/package*.json ./
+# Copy package files first for better layer caching
+COPY backend/package.json backend/package-lock.json ./
 
-RUN npm ci --only=production
+ENV NODE_ENV=production
+RUN npm ci --omit=dev
 
 COPY backend/src ./src
 
